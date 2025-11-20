@@ -62,7 +62,7 @@ It hosts a Wi-Fi hotspot:
 - Connect via SSH:
 	```ssh fruc-jetson-go1@192.168.15.1```
 #### 2.2 Launching the Recording System
-In the Docker directory, the system can be started. Perform the following coomands in different shell sessions.
+In the Docker directory, the system can be started. Perform the following commands in different shell sessions.
 1. docker compose up -d
 	→ Starts all sensor containers in the background
 2. docker compose run -i recorder
