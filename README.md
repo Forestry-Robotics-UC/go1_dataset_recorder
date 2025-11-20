@@ -52,9 +52,7 @@ It hosts a Wi-Fi hotspot:
 - SSID: jetson-go1
 - IP Address: 192.168.15.1
 - Connect via SSH:
-	```ssh fruc-jetson-go1@192.168.15.1
-
-```
+	```ssh fruc-jetson-go1@192.168.15.1```
 #### 2.2 Launching the Recording System
 In the HOME directory, two commands can be launched: start and stop.
 #### start
@@ -71,8 +69,7 @@ Runs stop.sh, which:
 - Stops and removes all containers
 - Ensures a clean shutdown
 All ROS2 bags are saved outside the containers at:
-```/mnt/External Disk/rosbags/
-```
+```/mnt/External Disk/rosbags/```
 #### To close the system:
 1. Press Ctrl+C to close hector_recorder
 2. Run stop
@@ -91,16 +88,12 @@ To modify what is recorded:
 All sensor packages live inside ros2_ws/src/.
 Configuration files are located here:
 #### 4.1 Emlid
-```nmea_navsat_driver/config/nmea_serial_driver.yaml
-```
+```nmea_navsat_driver/config/nmea_serial_driver.yaml```
 #### 4.2 Robosense Bpearl LiDAR
-```rslidar_sdk/config/config.yaml
-```
+```rslidar_sdk/config/config.yaml```
 #### 4.3 Realsense Camera
 Launch file with all the necessary parameters:
-```realsense-ros/realsense2_camera/launch/rs_launch.py
-```
+```realsense-ros/realsense2_camera/launch/rs_launch.py```
 #### 4.4 Xsens IMU
 Launch file:
-```norlab_xsens_driver/launch/xsens_driver.launch.xml
-```
+```norlab_xsens_driver/launch/xsens_driver.launch.xml```
