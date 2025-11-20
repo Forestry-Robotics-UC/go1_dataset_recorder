@@ -23,7 +23,8 @@ RUN apt -y install ros-kilted-rmw-cyclonedds-cpp \
     ros-kilted-rosbag2-storage-mcap \
     ros-kilted-cv-bridge \
     ros-kilted-image-transport \
-    ros-kilted-diagnostic-updater
+    ros-kilted-diagnostic-updater \
+    ros-kilted-realsense2-camera-msgs
 
 #Configure catkin workspace
 ENV CATKIN_WS=/root/ros2_ws
@@ -36,11 +37,6 @@ RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
 RUN git clone --recursive https://github.com/snt-arg/unitree_ros.git
 
 RUN git clone https://github.com/tu-darmstadt-ros-pkg/hector_recorder.git
-
-RUN git clone --filter=blob:none --no-checkout https://github.com/IntelRealSense/realsense-ros.git
-WORKDIR $CATKIN_WS/src/realsense-ros
-RUN git sparse-checkout init --cone
-RUN git sparse-checkout set realsense2_camera_msgs
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc

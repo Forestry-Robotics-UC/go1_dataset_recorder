@@ -15,7 +15,7 @@ source /opt/ros/humble/setup.bash
 
 #Build workspace only with the packages descriminated on docker compose file
 cd /root/ros2_ws/
-colcon build --packages-select $BUILDLIST --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 # Source ROS2 Workspace
 source /root/ros2_ws/install/setup.bash
