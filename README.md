@@ -62,9 +62,7 @@ It hosts a Wi-Fi hotspot:
 - Connect via SSH:
 	```ssh fruc-jetson-go1@192.168.15.1```
 #### 2.2 Launching the Recording System
-In the HOME directory, two commands can be launched: start and stop.
-#### start
-Runs startup.sh, which performs:
+In the Docker directory, the system can be started. Perform the following coomands in different shell sessions.
 1. docker compose up -d
 	→ Starts all sensor containers in the background
 2. docker compose run -i recorder
@@ -72,15 +70,11 @@ Runs startup.sh, which performs:
 The recorder will then:
 - Ask for a bag name (leave empty to auto-generate)
 - Start recording once confirmed
-#### stop
-Runs stop.sh, which:
-- Stops and removes all containers
-- Ensures a clean shutdown
 All ROS2 bags are saved outside the containers at:
 ```/mnt/External Disk/rosbags/```
 #### To close the system:
 1. Press Ctrl+C to close hector_recorder
-2. Run stop
+2. Run docker compose down
 ### 3. Recording Configuration
 To modify what is recorded:
 1. Edit the recorder entry-point script in shared_folder/recorder-launch.sh
