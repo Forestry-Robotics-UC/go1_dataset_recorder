@@ -1,0 +1,124 @@
+networks:
+  ros2-net:
+
+services:
+  xsens:
+    build:
+     context: .
+     dockerfile: xsens/xsens-jetson.Dockerfile
+    container_name: xsens
+    privileged: true
+    networks:
+      - ros2-net
+    volumes:
+      - /dev/:/dev/
+      - ../ros2_ws/src:/root/ros2_ws/src
+      - ../ros2_ws/xsens-build:/root/ros2_ws/build
+      - ../shared_folder/:/root/shared_folder/
+      - ../sensor_configs/xsens/mtdevice.py:/root/ros2_ws/src/norlab_xsens_driver/xsens_driver/mtdevice.py:rw
+      - ../sensor_configs/xsens/mtnode.py:/root/ros2_ws/src/norlab_xsens_driver/xsens_driver/mtnode.py:rw
+      - ../sensor_configs/xsens/xsens_driver.launch.xml:/root/ros2_ws/src/norlab_xsens_driver/launch/xsens_driver.launch.xml:rw
+    environment:
+      - SETUP=/root/ros2_ws/install/setup.bash
+      - BUILDLIST=xsens_driver
+    command: /root/shared_folder/xsens-launch.sh
+
+  emlid:
+    build:
+      context: .
+      dockerfile: emlid/emlid-jetson.Dockerfile
+    container_name: emlid
+    privileged: true
+    networks:
+      - ros2-net
+    volumes:
+      - /dev/:/dev/
+      - ../ros2_ws/src:/root/ros2_ws/src
+      - ../ros2_ws/emlid-build:/root/ros2_ws/build
+      - ../shared_folder/:/root/shared_folder/
+      - ../sensor_configs/emlid/nmea_serial_driver.py:/root/ros2_ws/src/nmea_navsat_driver/src/libnmea_navsat_driver/nodes/nmea_serial_driver.py:rw
+      - ../sensor_configs/emlid/nmea_serial_driver.yaml:/root/ros2_ws/src/nmea_navsat_driver/config/nmea_serial_driver.yaml:rw
+    environment:
+      - SETUP=/root/ros2_ws/install/setup.bash
+      - BUILDLIST=nmea_navsat_driver
+    command: /root/shared_folder/emlid-launch.sh
+
+  realsense:
+    build:
+      context: .
+      dockerfile: realsense/realsense-jetson.Dockerfile
+    container_name: realsense
+    privileged: true
+    networks:
+      - ros2-net
+    volumes:
+      - /dev/:/dev/
+      - ../ros2_ws/src:/root/ros2_ws/src
+      - ../ros2_ws/realsense-build:/root/ros2_ws/build
+      - ../shared_folder/:/root/shared_folder/
+      - ../sensor_configs/realsense/rs_launch,py:/root/ros2_ws/src/realsense-ros/realsense2_camera/launch/rs_launch.py
+    environment:
+      - SETUP=/root/ros2_ws/install/setup.bash
+      - BUILDLIST=realsense2_camera realsense2_camera_msgs realsense2_description
+    command: /root/shared_folder/realsense-launch.sh
+
+  bpearl:
+    build:
+      context: .
+      dockerfile: bpearl/bpearl-jetson.Dockerfile
+    container_name: bpearl
+    privileged: true
+    networks:
+      - ros2-net
+    ports:
+      - "6699:6699/udp"
+      - "7788:7788/udp"
+    volumes:
+      - /dev/:/dev/
+      - ../ros2_ws/src:/root/ros2_ws/src
+      - ../ros2_ws/bpearl-build:/root/ros2_ws/build
+      - ../shared_folder/:/root/shared_folder/
+      - ../sensor_configs/bpearl/config.yaml:/root/ros2_ws/src/rslidar_sdk/config/config.yaml:rw
+    environment:
+      - SETUP=/root/ros2_ws/install/setup.bash
+      - BUILDLIST=rslidar_sdk rslidar_msg
+    command: /root/shared_folder/bpearl-launch.sh
+
+  go1:
+    build:
+      context: .
+      dockerfile: go1/go1-jetson.Dockerfile
+    container_name: go1
+    privileged: true
+    networks:
+      - ros2-net
+    volumes:
+      - /dev/:/dev/
+      - ../ros2_ws/src:/root/ros2_ws/src
+      - ../ros2_ws/go1-build:/root/ros2_ws/build
+      - ../shared_folder/:/root/shared_folder/
+      - ../sensor_configs/go1/params.yaml:/root/ros2_ws/src/unitree_ros/config/params.yaml:rw
+    environment:
+      - SETUP=/root/ros2_ws/install/setup.bash
+      - BUILDLIST=unitree_ros
+    command: /root/shared_folder/go1-launch.sh
+
+  recorder:
+    build:
+      context: .
+      dockerfile: recorder/recorder-jetson.Dockerfile
+    container_name: recorder
+    privileged: true
+    networks:
+      - ros2-net
+    volumes:
+      - /dev/:/dev/
+      - /mnt/External Disk/rosbags/:/root/rosbags/
+      - ../ros2_ws/src:/root/ros2_ws/src
+      - ../ros2_ws/recorder-build:/root/ros2_ws/build
+      - ../shared_folder/:/root/shared_folder/
+    environment:
+      - SETUP=/root/ros2_ws/install/setup.bash
+      - BUILDLIST=hector_recorder hector_recorder_msgs rslidar_msg realsense2_camera_msgs unitree_ros
+    command: /root/shared_folder/recorder-launch.sh
+
