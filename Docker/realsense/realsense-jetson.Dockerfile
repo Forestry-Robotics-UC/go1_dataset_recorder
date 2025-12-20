@@ -1,5 +1,5 @@
 ARG ARCH=linux/arm64/v8
-FROM ros:humble-ros-base
+FROM ros:jazzy-ros-base
 
 LABEL maintainer="Duarte Cruz <duarte.cruz@isr.uc.pt>"
 
@@ -7,26 +7,14 @@ SHELL ["/bin/bash","-c"]
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install packages
-RUN apt-get update \
-    && apt-get install build-essential -y \
-    apt-utils \
-    git \
-    software-properties-common \
-    cmake \
-    udev \
-    zstd
-
-# Install some python packages
-RUN apt-get -y install python3-pip
-
 #Install ROS Packages
-RUN apt-get install -y ros-dev-tools \
-    ros-humble-diagnostic-updater \
-    ros-humble-librealsense* \
-    ros-humble-cv-bridge \
-    ros-humble-image-transport \
-    ros-humble-rmw-cyclonedds-cpp
+RUN apt update \
+    && apt install -y \
+    ros-jazzy-diagnostic-updater \
+    ros-jazzy-librealsense* \
+    ros-jazzy-cv-bridge \
+    ros-jazzy-image-transport \
+    ros-jazzy-rmw-cyclonedds-cpp
 
 #Configure catkin workspace
 ENV CATKIN_WS=/root/ros2_ws
@@ -36,7 +24,7 @@ RUN mkdir -p $CATKIN_WS/src
 WORKDIR $CATKIN_WS/src
 RUN git clone https://github.com/IntelRealSense/realsense-ros.git
 
-RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 # Clean-up
@@ -44,3 +32,4 @@ WORKDIR /root
 RUN apt-get clean
 
 CMD ["bash"]
+

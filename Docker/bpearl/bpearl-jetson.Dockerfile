@@ -1,5 +1,5 @@
 ARG ARCH=linux/arm64/v8
-FROM ros:humble-ros-base
+FROM ros:jazzy-ros-base
 
 LABEL maintainer="Duarte Cruz <duarte.cruz@isr.uc.pt>"
 
@@ -9,18 +9,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install packages
 RUN apt-get update \
-    && apt-get install build-essential -y \
-    apt-utils \
-    git \
-    software-properties-common \
-    cmake \
-    udev \
-    zstd \
+    && apt-get install -y \
     libyaml-cpp-dev \
     libpcap-dev
-
-# Install some python packages
-RUN apt-get -y install python3-pip
 
 #Install ros2 pkg
 RUN apt -y install ros-humble-rmw-cyclonedds-cpp
@@ -39,7 +30,7 @@ RUN git submodule update
 WORKDIR $CATKIN_WS/src
 RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
 
-RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 # Clean-up

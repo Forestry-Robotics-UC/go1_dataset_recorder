@@ -1,5 +1,5 @@
 ARG ARCH=linux/arm64/v8
-FROM ros:kilted-ros-base
+FROM ros:jazzy-ros-base
 
 LABEL maintainer="Duarte Cruz <duarte.cruz@isr.uc.pt>"
 
@@ -10,11 +10,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install packages
 RUN apt-get update \
     && apt-get install -y \
-    build-essential \
-    apt-utils \
-    git \
-    software-properties-common \
-    cmake \
     libboost-all-dev \
     libncurses-dev
 
@@ -38,7 +33,7 @@ RUN git clone --recursive https://github.com/snt-arg/unitree_ros.git
 
 RUN git clone https://github.com/tu-darmstadt-ros-pkg/hector_recorder.git
 
-RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 # Clean-up
