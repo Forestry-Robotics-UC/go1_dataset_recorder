@@ -49,17 +49,7 @@
       </plot>
     </plugin>
   </gazebo>
-  <!-- Show the trajectory of foot. You can add another trajectory about another foot. -->
-  <!-- <gazebo>
-        <plugin name="3dplot" filename="libLinkPlot3DPlugin.so">
-            <frequency>100</frequency>
-            <plot>
-                <link>FL_foot</link>
-                <pose>0 0 0 0 0 0</pose>
-                <material>Gazebo/Green</material>
-            </plot>
-        </plugin>
-    </gazebo> -->
+  <!-- Apply force plugin -->
   <gazebo>
     <plugin filename="libgazebo_ros_force.so" name="gazebo_ros_force">
       <bodyName>trunk</bodyName>
@@ -85,77 +75,6 @@
       <pose>0 0 0 0 0 0</pose>
     </sensor>
   </gazebo>
-  <!-- Depth camera -->
-  <!-- <gazebo>
-        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
-            <baseline>0.025</baseline>
-            <always_on>true</always_on>
-            <updateRate>0.0</updateRate>
-            <cameraName>unitree_camera_left</cameraName>
-            <frameName>depthCamera_link_left</frameName>
-            <imageTopicName>rgb/imageRaw_left</imageTopicName>
-            <depthImageTopicName>depth/imageRaw_left</depthImageTopicName>
-            <pointCloudTopicName>depth/points_left</pointCloudTopicName>
-            <cameraInfoTopicName>rgb/cameraInfo_left</cameraInfoTopicName>              
-            <depthImageCameraInfoTopicName>depth/cameraInfo_left</depthImageCameraInfoTopicName>            
-            <pointCloudCutoff>0.1</pointCloudCutoff>                
-            <pointCloudCutoffMax>1.5</pointCloudCutoffMax>                
-            <distortionK1>0.0</distortionK1>
-            <distortionK2>0.0</distortionK2>
-            <distortionK3>0.0</distortionK3>
-            <distortionT1>0.0</distortionT1>
-            <distortionT2>0.0</distortionT2>
-            <CxPrime>0.0</CxPrime>
-            <Cx>0.0045</Cx>
-            <Cy>0.0039</Cy>
-            <focalLength>0.004</focalLength>
-            <hackBaseline>0.0</hackBaseline>
-        </plugin>
-    </gazebo> -->
-  <!-- <gazebo reference="depthCamera_link_left">
-        <sensor name="unitree_camera_left" type="depth_camera">
-            <update_rate>16</update_rate>
-            <always_on>true</always_on>
-            <visualize>true</visualize>
-            <camera>
-                <horizontal_fov>2.094</horizontal_fov>
-                <image>
-                    <width>928</width>
-                    <height>800</height>
-                    <format>R8G8B8</format>
-                </image>
-                <depth_camera></depth_camera>
-                <clip>
-                    <near>0.1</near>
-                    <far>100</far>
-                </clip>
-            </camera>
-            <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
-                <baseline>0.025</baseline>
-                <always_on>true</always_on>
-                <updateRate>0.0</updateRate>
-                <cameraName>unitree_camera_left</cameraName>
-                <frameName>depthCamera_link_left</frameName>
-                <imageTopicName>rgb/imageRaw_left</imageTopicName>
-                <depthImageTopicName>depth/imageRaw_left</depthImageTopicName>
-                <pointCloudTopicName>depth/points_left</pointCloudTopicName>
-                <cameraInfoTopicName>rgb/cameraInfo_left</cameraInfoTopicName>              
-                <depthImageCameraInfoTopicName>depth/cameraInfo_left</depthImageCameraInfoTopicName>            
-                <pointCloudCutoff>0.1</pointCloudCutoff>                
-                <pointCloudCutoffMax>1.5</pointCloudCutoffMax>                
-                <distortionK1>0.0</distortionK1>
-                <distortionK2>0.0</distortionK2>
-                <distortionK3>0.0</distortionK3>
-                <distortionT1>0.0</distortionT1>
-                <distortionT2>0.0</distortionT2>
-                <CxPrime>0.0</CxPrime>
-                <Cx>0.0045</Cx>
-                <Cy>0.0039</Cy>
-                <focalLength>0.004</focalLength>
-                <hackBaseline>0.0</hackBaseline>
-            </plugin>
-        </sensor>
-    </gazebo> -->
   <gazebo reference="depthCamera_link_left">
     <sensor name="camera_link_camera" type="depth">
       <update_rate>20</update_rate>
@@ -176,11 +95,11 @@
         <alwaysOn>true</alwaysOn>
         <updateRate>1.0</updateRate>
         <cameraName>camera_link_ir</cameraName>
-        <imageTopicName>/camera_link/color/image_raw</imageTopicName>
-        <cameraInfoTopicName>/camera_link/color/camera_info</cameraInfoTopicName>
-        <depthImageTopicName>/camera_link/depth/image_raw</depthImageTopicName>
-        <depthImageInfoTopicName>/camera_link/depth/camera_info</depthImageInfoTopicName>
-        <pointCloudTopicName>/camera_link/depth/points</pointCloudTopicName>
+        <imageTopicName>/camera_link_go1/color/image_raw</imageTopicName>
+        <cameraInfoTopicName>/camera_link_go1/color/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>/camera_link_go1/depth/image_raw</depthImageTopicName>
+        <depthImageInfoTopicName>/camera_link_go1/depth/camera_info</depthImageInfoTopicName>
+        <pointCloudTopicName>/camera_link_go1/depth/points</pointCloudTopicName>
         <frameName>depthCamera_link_left</frameName>
         <pointCloudCutoff>0.5</pointCloudCutoff>
         <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
@@ -1766,9 +1685,9 @@
   <joint name="laser_joint" type="fixed">
     <origin rpy="-1.57 1.57 0" xyz="0.178 0 0.211"/>
     <parent link="trunk"/>
-    <child link="rs_lidar"/>
+    <child link="rslidar"/>
   </joint>
-  <link name="rs_lidar">
+  <link name="rslidar">
     <collision>
       <origin rpy="-1.57 1.57 0" xyz="0.0 -0.05 0.0"/>
       <geometry>
@@ -1914,12 +1833,39 @@
       <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
+  </link>
+
+  <joint name="nvidia_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.05 -0.05 0.12"/>
+    <parent link="trunk"/>
+    <child link="nvidia"/>
+  </joint>
+  <link name="nvidia">
+    <collision>
+      <origin rpy="0 0 0" xyz="0.05 0.05 0.01"/>
+      <geometry>
+        <box size="0.1 0.1 0.07"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+      <geometry>
+        <mesh filename="package://rm3100_driver/urdf/meshes/nvidia-agx-orin-dev-kit.dae" scale="1 1 1"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <inertial>
+      <mass value="1e-5"/>
+      <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
   </link> 
-  <gazebo reference="laser_link">
+
+  <gazebo reference="rslidar">
     <material>Gazebo/Black</material>
     <gravity>true</gravity>
-    <sensor name="laser" type="ray">
-      <pose>0 0 0 0 0 0</pose>
+    <sensor name="rslidar" type="ray">
+      <pose>0.178 0 0.211 -1.57 1.57 0</pose>
       <visualize>false</visualize>
       <update_rate>40</update_rate>
       <ray>
@@ -1944,10 +1890,9 @@
       </ray>
       <plugin filename="libgazebo_ros_laser.so" name="laser_controller">
         <robotNamespace/>
-        <topicName>scan</topicName>
-        <frameName>laser_link</frameName>
+        <topicName>/rslidar_points</topicName>
+        <frameName>rslidar</frameName>
       </plugin>
     </sensor>
   </gazebo>
 </robot>
-
