@@ -8,7 +8,9 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 │   ├── realsense/
 │   ├── recorder/
 │   ├── ros2_ws/
+│   ├── rm3100
 │   ├── xsens/
+│   ├── startup.sh
 │   └── docker-compose.yml
 ├── ros2_ws/
 │   ├── bpearl-build/
@@ -16,6 +18,7 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 │   ├── go1-build/
 │   ├── realsense-build/
 │   ├── recorder-build/
+│   ├── rm3100-build/
 │   └── xsens-build/
 ├── shared_folder/
 │   ├── bpearl-launch.sh
@@ -23,12 +26,14 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 │   ├── go1-launch.sh
 │   ├── realsense-launch.sh
 │   ├── recorder-launch.sh
+│   ├── rm3100-launch.sh
 │   └── xsens-launch.sh
 ├──sensor_configs/
 │   ├── bpearl/
 │   ├── emlid/
 │   ├── go1/
 │   ├── realsense/
+│   ├── rm3100
 │   ├── xsens/
 
 ```
@@ -38,6 +43,7 @@ In Docker dir, each sensor package has its own Dockerfile inside its correspondi
 - emlid/ → GNSS-RTK (Reach M2) driver
 - go1/ → Unitree Go1 SDK
 - realsense/ → Intel Realsense camera driver
+- rm3100/ → RM3100 Magnetometer driver
 - xsens/ → Xsens IMU
 - recorder/ → hector_recorder
 A docker-compose.yml file creates all containers for the sensors and the recording.
@@ -62,10 +68,12 @@ It hosts a Wi-Fi hotspot:
 - Connect via SSH:
 	```ssh fruc-jetson-go1@192.168.15.1```
 #### 2.2 Launching the Recording System
-In the Docker directory, the system can be started. Perform the following commands in different shell sessions.
-1. docker compose up -d
+In the Docker directory, the system can be started using one of two methods:
+1. If you using the RM3100 magnetometer, use the script "startup.sh" to launch the system.
+2. If not, perform the following commands in different shell sessions.
+	```docker compose up -d```
 	→ Starts all sensor containers in the background
-2. docker compose run -i recorder
+	```docker compose run -i recorder```
 	→ Opens an interactive shell and launches the hector_recorder TUI
 The recorder will then:
 - Ask for a bag name (leave empty to auto-generate)
@@ -102,6 +110,9 @@ Launch file:
 #### 4.3 Realsense Camera
 Launch file:
 ```realsense/rs_launch.py```
-#### 4.4 Xsens IMU
+#### 4.4 RM3100
+Config file:
+```rm3100/params.yaml```
+#### 4.5 Xsens IMU
 Launch file:
 ```xsens/xsens_driver.launch.xml```

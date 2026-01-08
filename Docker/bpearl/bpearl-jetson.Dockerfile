@@ -8,13 +8,13 @@ SHELL ["/bin/bash","-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install packages
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt update \
+    && apt install -y \
     libyaml-cpp-dev \
     libpcap-dev
 
 #Install ros2 pkg
-RUN apt -y install ros-humble-rmw-cyclonedds-cpp
+RUN apt install -y ros-$ROS_DISTRO-rmw-cyclonedds-cpp
 
 #Configure catkin workspace
 ENV CATKIN_WS=/root/ros2_ws

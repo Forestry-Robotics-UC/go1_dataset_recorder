@@ -10,12 +10,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 #Install ROS Packages
 RUN apt update \
     && apt install -y \
-    ros-jazzy-diagnostic-updater \
-    ros-jazzy-librealsense* \
-    ros-jazzy-cv-bridge \
-    ros-jazzy-image-transport \
-    ros-jazzy-rmw-cyclonedds-cpp
-
+    ros-$ROS_DISTRO-diagnostic-updater \
+    ros-$ROS_DISTRO-librealsense* \
+    ros-$ROS_DISTRO-cv-bridge \
+    ros-$ROS_DISTRO-image-transport \
+    ros-$ROS_DISTRO-rmw-cyclonedds-cpp
+    
 #Configure catkin workspace
 ENV CATKIN_WS=/root/ros2_ws
 RUN mkdir -p $CATKIN_WS/src

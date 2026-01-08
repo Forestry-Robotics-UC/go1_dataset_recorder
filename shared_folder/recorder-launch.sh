@@ -10,8 +10,8 @@ set -e
 #Cyclonedds
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-# Source ROS2 Kilted
-source /opt/ros/kilted/setup.bash
+# Source ROS2 Jazzy
+source /opt/ros/jazzy/setup.bash
 
 #Build workspace only with the packages descriminated on docker compose file
 cd /root/ros2_ws/
@@ -42,7 +42,7 @@ fi
 BAG_NAME="$(date +%Y_%m_%d_%H_%M_%S)__${label}_"
 
 #Topics to record
-TOPICS="/rslidar_packets /camera/color/image_raw /camera/aligned_depth_to_color/image_raw /camera/color/metadata /camera/depth/metadata /camera/extrinsics/depth_to_color /camera/extrinsics/depth_to_depth /camera/color/camera_info /camera/aligned_depth_to_color/camera_info /camera/imu /imu/data /imu/mag /fix /go1/bms_state /go1/imu /go1/joint_states /go1/odom /tf /tf_static"
+TOPICS="/rslidar_packets /camera/color/image_raw /camera/aligned_depth_to_color/image_raw /camera/color/metadata /camera/depth/metadata /camera/extrinsics/depth_to_color /camera/extrinsics/depth_to_depth /camera/color/camera_info /camera/aligned_depth_to_color/camera_info /camera/imu /imu/data /imu/mag /fix /go1/bms_state /go1/imu /go1/joint_states /go1/odom /mag /mag/compass /mag/compass/azimuth /mag/compass/azimuth_var /tf /tf_static"
 
 mkdir -p "$BAG_DIR"
 

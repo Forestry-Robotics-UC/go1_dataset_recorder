@@ -322,7 +322,7 @@
     </visual>
   </link>
   <joint name="floating_base" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <origin rpy="0 0 1.57" xyz="0 0 0"/>
     <parent link="base"/>
     <child link="trunk"/>
   </joint>
@@ -1682,11 +1682,22 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
   </link>
-  <joint name="laser_joint" type="fixed">
-    <origin rpy="-1.57 1.57 0" xyz="0.178 0 0.211"/>
+
+  <joint name="laser_main_joint" type="fixed">
+    <origin rpy="0 1.57 0" xyz="0.178 -0.02 0.211"/>
     <parent link="trunk"/>
+    <child link="rslidar_main"/>
+  </joint>
+
+  <link name="rslidar_main">
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <origin rpy="0 0 0.02" xyz="0 0 0"/>
+    <parent link="rslidar_main"/>
     <child link="rslidar"/>
   </joint>
+
   <link name="rslidar">
     <collision>
       <origin rpy="-1.57 1.57 0" xyz="0.0 -0.05 0.0"/>
@@ -1695,7 +1706,8 @@
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 -0.357 0" xyz="0.0 0 0.0"/>
+      <!-- <origin rpy="0 -0.357 0" xyz="0.0 0 0.0"/> -->
+      <origin rpy="-1.57 0 0.357" xyz="0.0 0.02 0.0"/>
       <geometry>
         <mesh filename="package://rm3100_driver/urdf/meshes/bpearl.dae" scale="1 1 1"/>
       </geometry>
@@ -1709,10 +1721,11 @@
   </link>
   <joint name="realsense_joint" type="fixed">
     <!-- <origin rpy="-1.57 0 1.57" xyz="0.161909 0 0.118288"/> -->
-    <origin rpy="-1.57 0 1.57" xyz="0.177033 0 0.129929"/>
+    <origin rpy="0 0 0" xyz="0.177033 0 0.129929"/>
     <parent link="trunk"/>
     <child link="camera_link"/>
   </joint>
+
   <link name="camera_link">
     <collision>
       <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
@@ -1722,7 +1735,7 @@
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+      <origin rpy="-1.57 0 1.57" xyz="0.0 0 0.0"/>
       <geometry>
         <mesh filename="package://rm3100_driver/urdf/meshes/realsense_D435i.dae" scale="1000 1000 1000"/>
       </geometry>

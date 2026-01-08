@@ -15,9 +15,9 @@ RUN apt update \
 
 #Install ros pkgs
 RUN apt install -y \
-    ros-humble-rmw-cyclonedds-cpp \
-    ros-humble-xacro \
-    ros-humble-joint-state-publisher
+    ros-$ROS_DISTRO-rmw-cyclonedds-cpp \
+    ros-$ROS_DISTRO-xacro \
+    ros-$ROS_DISTRO-joint-state-publisher
 
 WORKDIR /root/ros2_ws/
 

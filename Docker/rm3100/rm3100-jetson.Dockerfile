@@ -7,24 +7,20 @@ SHELL ["/bin/bash","-c"]
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install packages
+# Install some python packages
 RUN apt update \
     && apt install -y \
-    libboost-all-dev \
-    libncurses-dev \
     libgeographiclib-dev \
     libcxxopts-dev \
     libexpected-dev \
     libboost-dev \
-    iproute2
+    iproute2 \
+    python3-pip
 
-#Install ros2 pkg
-RUN apt install -y ros-$ROS_DISTRO-rmw-cyclonedds-cpp \
-    ros-$ROS_DISTRO-rosbag2-storage-mcap \
-    ros-$ROS_DISTRO-cv-bridge \
-    ros-$ROS_DISTRO-image-transport \
-    ros-$ROS_DISTRO-diagnostic-updater \
-    ros-$ROS_DISTRO-realsense2-camera-msgs \
+RUN pip install dronecan --break-system-packages
+
+#Install ROS Packages
+RUN apt install -y \
     ros-$ROS_DISTRO-angles \
     ros-$ROS_DISTRO-topic-tools \
     ros-$ROS_DISTRO-sensor-msgs \
@@ -37,19 +33,16 @@ RUN mkdir -p $CATKIN_WS/src
 
 WORKDIR $CATKIN_WS/src
 
-# Clone dependencies repos
-RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
+# Clone RM3100 magnetometer driver
+RUN git clone https://github.com/Forestry-Robotics-UC/go1_magnetometer_rm3100.git
 
-RUN git clone --recursive https://github.com/snt-arg/unitree_ros.git
-
-RUN git clone https://github.com/tu-darmstadt-ros-pkg/hector_recorder.git
-
-# Clone rm3100 dependencies repos
+# Clone necessary repos
 RUN git clone -b ros2 https://github.com/ctu-vras/compass.git
 RUN git clone https://github.com/TartanLlama/expected.git
 RUN git clone -b ros2 https://github.com/ctu-vras/ros-utils.git
 RUN git clone https://github.com/ctu-vras/cras_msgs.git
 
+# Build workspace
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
 

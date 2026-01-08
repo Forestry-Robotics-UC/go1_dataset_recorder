@@ -10,8 +10,8 @@ set -e
 #Cyclonedds
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-# Source ROS2 Humble
-source /opt/ros/humble/setup.bash
+# Source ROS2 Jazzy
+source /opt/ros/jazzy/setup.bash
 
 #Build workspace only with the packages descriminated on docker compose file
 cd /root/ros2_ws/
