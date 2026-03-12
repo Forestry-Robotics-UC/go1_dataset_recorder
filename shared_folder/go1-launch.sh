@@ -21,7 +21,9 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 source /root/ros2_ws/install/setup.bash
 
 #Run unitree driver
-ros2 launch unitree_ros unitree_driver_launch.py
+ros2 launch unitree_ros unitree_driver_launch.py &
 
-#To use wifi instaed on ethernet
+ros2 launch go1_description publish_urdf.launch.py
+
+#To use wifi instaed of ethernet
 #ros2 launch unitree_ros unitree_driver_launch.py wifi:=true

@@ -26,7 +26,9 @@ ENV CATKIN_WS=/root/ros2_ws
 RUN mkdir -p $CATKIN_WS/src
 
 WORKDIR $CATKIN_WS/src
-RUN git clone --recursive https://github.com/snt-arg/unitree_ros.git
+
+#This unitree_ros pkg is in the ros2_ws directory -> Has some modifications, removed the actions considering the battery level (does not work) and the light warnings
+#RUN git clone --recursive https://github.com/snt-arg/unitree_ros.git
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc

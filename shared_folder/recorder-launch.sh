@@ -22,7 +22,6 @@ sleep 10
 #Database of random names to bags
 names_dir="/root/shared_folder"
 name_1=$(shuf -n 1 "$names_dir/.names_1")
-name_2=$(shuf -n 1 "$names_dir/.names_2")
 
 # Directory where the bags are saved
 BAG_DIR="/root/rosbags"
