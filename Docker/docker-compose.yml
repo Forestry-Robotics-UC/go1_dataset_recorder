@@ -39,7 +39,7 @@ services:
   realsense:
     build:
       context: .
-      dockerfile: realsense/realsense-jetson.Dockerfile
+      dockerfile: realsense/realsense-jetson-build.Dockerfile
     container_name: realsense
     privileged: true
     networks:
@@ -112,7 +112,7 @@ services:
       - ros2-net
     volumes:
       - /dev/:/dev/
-      - /mnt/External Disk/rosbags/:/root/rosbags/
+      - /home/fruc-go1-jetson/rosbags/:/root/rosbags/
       - ../ros2_ws/recorder-build:/root/ros2_ws/build
       - ../shared_folder/:/root/shared_folder/
     command: /root/shared_folder/recorder-launch.sh

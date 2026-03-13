@@ -37,7 +37,7 @@ cd $SCRIPT_DIR
 
 # Start your container in detached mode
 #Run foxglove to either start the foxglove server or the rviz -> Change what you want inside foxglove-launcher.sh
-docker compose up -d --scale rm3100=0 --scale recorder=0 --scale foxglove=0 &
+docker compose up -d --scale rm3100=0 --scale foxglove=0 &
 
 sleep 1
 

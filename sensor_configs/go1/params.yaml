@@ -1,7 +1,7 @@
 unitree_ros_node:
   ros__parameters:
     # namespace
-    ns: "go1"
+    ns: ""
     # Robot parameters
     robot_ip: "192.168.123.161" # Change to 192.168.12.1 for WIFI
     robot_target_port: 8082

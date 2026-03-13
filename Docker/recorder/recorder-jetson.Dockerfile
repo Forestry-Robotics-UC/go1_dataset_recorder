@@ -45,10 +45,10 @@ RUN git clone --recursive https://github.com/snt-arg/unitree_ros.git
 RUN git clone https://github.com/tu-darmstadt-ros-pkg/hector_recorder.git
 
 # Clone rm3100 dependencies repos
-RUN git clone -b ros2 https://github.com/ctu-vras/compass.git
-RUN git clone https://github.com/TartanLlama/expected.git
-RUN git clone -b ros2 https://github.com/ctu-vras/ros-utils.git
-RUN git clone https://github.com/ctu-vras/cras_msgs.git
+#RUN git clone -b ros2 https://github.com/ctu-vras/compass.git
+#RUN git clone https://github.com/TartanLlama/expected.git
+#RUN git clone -b ros2 https://github.com/ctu-vras/ros-utils.git
+#RUN git clone https://github.com/ctu-vras/cras_msgs.git
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
