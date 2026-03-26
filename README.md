@@ -4,25 +4,29 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 ├── Docker/
 │   ├── bpearl/
 │   ├── emlid/
+│   ├── foxglove/
 │   ├── go1/
 │   ├── realsense/
 │   ├── recorder/
-│   ├── ros2_ws/
-│   ├── rm3100
+│   ├── rm3100/
 │   ├── xsens/
 │   ├── startup.sh
 │   └── docker-compose.yml
 ├── ros2_ws/
 │   ├── bpearl-build/
 │   ├── emlid-build/
+│   ├── foxglove-build/
+│   ├── go1_description/
 │   ├── go1-build/
 │   ├── realsense-build/
 │   ├── recorder-build/
 │   ├── rm3100-build/
+│   ├── unitree_ros/
 │   └── xsens-build/
 ├── shared_folder/
 │   ├── bpearl-launch.sh
 │   ├── emlid-launch.sh
+│   ├── foxglove-launch.sh
 │   ├── go1-launch.sh
 │   ├── realsense-launch.sh
 │   ├── recorder-launch.sh
@@ -41,16 +45,20 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 In Docker dir, each sensor package has its own Dockerfile inside its corresponding directory:
 - bpearl/ → Robosense RS-Bpearl LiDAR driver
 - emlid/ → GNSS-RTK (Reach M2) driver
+- foxglvoe/ → Foxglove and RViZ docker containers
 - go1/ → Unitree Go1 SDK
 - realsense/ → Intel Realsense camera driver
+- recorder/ → hector_recorder
 - rm3100/ → RM3100 Magnetometer driver
 - xsens/ → Xsens IMU
-- recorder/ → hector_recorder
 A docker-compose.yml file creates all containers for the sensors and the recording.
 #### 1.2 Shared ROS 2 Workspace
 The directory ros2_ws/ is a workspace shared across all containers. Each container mounts:
 - ros2_ws/<sensor>-build/ → Build folder of each container
 This prevents each container from rebuilding the full workspace and allows faster startup.
+This directory also contains two packages that are being shared to the containers:
+- ```go1_description``` → Is the package that will launch the ```robot_state_publisher``` using a URDF file placed in this package `urdf/` directory.
+- ```unitree_ros``` → This is the ROS2 wrapper of the ```unitree_legged_sdk``` which enables to control the robot with velocity commands as well as receive back the robot state. This package has a problem detecting the battery percentage, so changes needed to be done to remove the automatic actions when it detected low battery.
 #### 1.3 Shared Entry-Point Scripts
 The folder shared_folder/ contains launcher scripts used by each container:
 - They source the ROS2 setup,
@@ -63,10 +71,10 @@ This folder has every configuration needed to each sensor. Every sensor has its 
 #### 2.1 Connecting to the Jetson
 The Jetson AGX Orin automatically powers on when the Go1 robot is turned on.
 It hosts a Wi-Fi hotspot:
-- SSID: jetson-go1
-- IP Address: 192.168.15.1
+- SSID: Jetson-Go1
+- IP Address: 10.42.0.5
 - Connect via SSH:
-	```ssh fruc-jetson-go1@192.168.15.1```
+	```ssh fruc-go1-jetson@10.42.0.5```
 #### 2.2 Launching the Recording System
 In the Docker directory, the system can be started using one of two methods:
 1. If you using the RM3100 magnetometer, use the script "startup.sh" to launch the system.
