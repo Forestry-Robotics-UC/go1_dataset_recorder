@@ -16,6 +16,7 @@ RUN apt update \
     libcxxopts-dev \
     libexpected-dev \
     libboost-dev \
+    libyaml-cpp-dev \
     iproute2
 
 #Install ros2 pkg
@@ -41,7 +42,10 @@ RUN mkdir -p $CATKIN_WS/src
 WORKDIR $CATKIN_WS/src
 
 # Clone dependencies repos
-RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
+#RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
+
+RUN git clone --recurse-submodules https://github.com/HesaiTechnology/HesaiLidar_ROS_2.0.git
+RUN rosdep update && rosdep install --from-paths . -y --ignore-src
 
 RUN git clone --recursive https://github.com/snt-arg/unitree_ros.git
 

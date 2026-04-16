@@ -12,6 +12,7 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 │   ├── recorder/
 │   ├── rm3100/
 │   ├── xsens/
+│   ├── hesai/
 │   ├── startup.sh
 │   └── docker-compose.yml
 ├── ros2_ws/
@@ -23,6 +24,7 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 │   ├── realsense-build/
 │   ├── recorder-build/
 │   ├── rm3100-build/
+│   ├── hesai-build/
 │   ├── unitree_ros/
 │   └── xsens-build/
 ├── shared_folder/
@@ -33,14 +35,16 @@ The entire data-acquisition system for the Unitree Go1 is organized under:
 │   ├── realsense-launch.sh
 │   ├── recorder-launch.sh
 │   ├── rm3100-launch.sh
+│   ├── hesai-launch.sh
 │   └── xsens-launch.sh
 ├──sensor_configs/
 │   ├── bpearl/
 │   ├── emlid/
 │   ├── go1/
 │   ├── realsense/
-│   ├── rm3100
-│   ├── xsens/
+│   ├── rm3100/
+│   ├── hesai/
+│   └── xsens/
 
 ```
 #### 1.1 Docker Containers
@@ -52,6 +56,7 @@ In Docker dir, each sensor package has its own Dockerfile inside its correspondi
 - realsense/ → Intel Realsense camera driver
 - recorder/ → hector_recorder
 - rm3100/ → RM3100 Magnetometer driver
+- hesai/ → Hesai JT128 LiDAR driver
 - xsens/ → Xsens IMU
 A docker-compose.yml file creates all containers for the sensors and the recording.
 #### 1.2 Shared ROS 2 Workspace
@@ -122,6 +127,9 @@ Launch file:
 #### 4.4 RM3100
 Config file:
 ```rm3100/params.yaml```
-#### 4.5 Xsens IMU
+#### 4.5 Hesai JT128
+config file:
+```hesai/hesai_config.yaml```
+#### 4.6 Xsens IMU
 Launch file:
 ```xsens/xsens_driver.launch.xml```

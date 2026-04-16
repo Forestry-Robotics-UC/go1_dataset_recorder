@@ -41,7 +41,9 @@ fi
 BAG_NAME="$(date +%Y_%m_%d_%H_%M_%S)__${label}_"
 
 #Topics to record
-TOPICS="/rslidar_points /camera/color/image_raw /camera/aligned_depth_to_color/image_raw /camera/color/metadata /camera/depth/metadata /camera/extrinsics/depth_to_color /camera/extrinsics/depth_to_depth /camera/color/camera_info /camera/aligned_depth_to_color/camera_info /camera/imu /imu/data /imu/mag /fix /bms_state /imu /joint_states /odom /mag /mag/compass /mag/compass/azimuth /mag/compass/azimuth_var /tf /tf_static"
+# Bpearl - /rslidar_points
+# Hesai - /hesai/points  /hesai/imu /hesai/lidar_packets
+TOPICS="/hesai/lidar_packets /hesai/imu /camera/color/image_raw /camera/aligned_depth_to_color/image_raw /camera/color/metadata /camera/depth/metadata /camera/extrinsics/depth_to_color /camera/extrinsics/depth_to_depth /camera/color/camera_info /camera/aligned_depth_to_color/camera_info /camera/imu /imu/data /imu/mag /fix /bms_state /imu /joint_states /odom /mag /mag/compass /mag/compass/azimuth /mag/compass/azimuth_var /tf /tf_static"
 
 mkdir -p "$BAG_DIR"
 
