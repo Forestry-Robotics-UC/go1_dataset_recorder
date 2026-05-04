@@ -1683,7 +1683,7 @@
     </inertial>
   </link>
 
-  <joint name="laser_main_joint" type="fixed">
+  <!-- <joint name="laser_main_joint" type="fixed">
     <origin rpy="0 1.57 0" xyz="0.178 -0.02 0.211"/>
     <parent link="trunk"/>
     <child link="rslidar_main"/>
@@ -1706,7 +1706,6 @@
       </geometry>
     </collision>
     <visual>
-      <!-- <origin rpy="0 -0.357 0" xyz="0.0 0 0.0"/> -->
       <origin rpy="-1.57 0 0.357" xyz="0.0 0.02 0.0"/>
       <geometry>
         <mesh filename="package://go1_description/meshes/bpearl.dae" scale="1 1 1"/>
@@ -1718,7 +1717,45 @@
       <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
+  </link> -->
+
+  <joint name="hesai_main_joint" type="fixed">
+    <origin rpy="0 1.57 0" xyz="0.168 -0.02 0.211"/>
+    <parent link="trunk"/>
+    <child link="hesai"/>
+  </joint>
+
+  <link name="hesai">
   </link>
+
+  <joint name="hesai_joint" type="fixed">
+    <origin rpy="0 0 0.02" xyz="0 0 0"/>
+    <parent link="hesai"/>
+    <child link="hesai_jt128"/>
+  </joint>
+
+  <link name="hesai_jt128">
+    <collision>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.02 0.035"/>
+      <geometry>
+        <cylinder length="0.08" radius="0.035"/>
+      </geometry>
+    </collision>
+    <visual>
+      <!-- <origin rpy="0 -0.357 0" xyz="0.0 0 0.0"/> -->
+      <origin rpy="0.0 0.0 -1.57" xyz="0.0 0.02 0.0"/>
+      <geometry>
+        <mesh filename="package://go1_description/meshes/hesai-jt128.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <inertial>
+      <mass value="1e-5"/>
+      <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
   <joint name="realsense_joint" type="fixed">
     <!-- <origin rpy="-1.57 0 1.57" xyz="0.161909 0 0.118288"/> -->
     <origin rpy="0 0 0" xyz="0.177033 0 0.129929"/>
@@ -1728,7 +1765,7 @@
 
   <link name="camera_link">
     <collision>
-      <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+      <origin rpy="0 0 1.57" xyz="-0.01 0.0 0.0"/>
       <geometry>
         <!-- <cylinder length="0.05" radius="0.05"/> -->
         <box size="0.09 0.03 0.035"/>
@@ -1874,7 +1911,7 @@
     </inertial>
   </link> 
 
-  <gazebo reference="rslidar">
+  <!-- <gazebo reference="rslidar">
     <material>Gazebo/Black</material>
     <gravity>true</gravity>
     <sensor name="rslidar" type="ray">
@@ -1905,6 +1942,41 @@
         <robotNamespace/>
         <topicName>/rslidar_points</topicName>
         <frameName>rslidar</frameName>
+      </plugin>
+    </sensor>
+  </gazebo> -->
+
+  <gazebo reference="hesai_jt128">
+    <material>Gazebo/Black</material>
+    <gravity>true</gravity>
+    <sensor name="rslidar" type="ray">
+      <pose>0.168 -0.02 0.211 0 1.57 0</pose>
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.141592653589793</min_angle>
+            <max_angle>3.141592653589793</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.2</min>
+          <max>40</max>
+          <resolution>0.025</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.0</stddev>
+        </noise>
+      </ray>
+      <plugin filename="libgazebo_ros_laser.so" name="laser_controller">
+        <robotNamespace/>
+        <topicName>/hesai_points</topicName>
+        <frameName>hesai_jt128</frameName>
       </plugin>
     </sensor>
   </gazebo>
