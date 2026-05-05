@@ -1720,7 +1720,8 @@
   </link> -->
 
   <joint name="hesai_main_joint" type="fixed">
-    <origin rpy="0 1.57 0" xyz="0.168 -0.02 0.211"/>
+    <!-- <origin rpy="0.0 1.57 0.0" xyz="0.1622 -0.02 0.1885"/> -->
+    <origin rpy="0.0 1.57 0.0" xyz="0.175 -0.02 0.1885"/>
     <parent link="trunk"/>
     <child link="hesai"/>
   </joint>
@@ -1729,21 +1730,20 @@
   </link>
 
   <joint name="hesai_joint" type="fixed">
-    <origin rpy="0 0 0.02" xyz="0 0 0"/>
+    <origin rpy="0 0 2" xyz="0 0 0"/>
     <parent link="hesai"/>
-    <child link="hesai_jt128"/>
+    <child link="hesai_lidar"/>
   </joint>
 
-  <link name="hesai_jt128">
+  <link name="hesai_lidar">
     <collision>
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.02 0.035"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.035"/>
       <geometry>
         <cylinder length="0.08" radius="0.035"/>
       </geometry>
     </collision>
     <visual>
-      <!-- <origin rpy="0 -0.357 0" xyz="0.0 0 0.0"/> -->
-      <origin rpy="0.0 0.0 -1.57" xyz="0.0 0.02 0.0"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0182 -0.008 -0.0125"/>
       <geometry>
         <mesh filename="package://go1_description/meshes/hesai-jt128.dae" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -1799,7 +1799,7 @@
     <visual>
       <origin rpy="0 0 3.14" xyz="0.0 0 0.0"/>
       <geometry>
-        <mesh filename="package://go1_description/meshes/Suporte_Lidar_V005.dae" scale="1 1 1"/>
+        <mesh filename="package://go1_description/meshes/Suporte_Lidar_V006.dae" scale="1 1 1"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -1946,10 +1946,10 @@
     </sensor>
   </gazebo> -->
 
-  <gazebo reference="hesai_jt128">
+  <gazebo reference="hesai_lidar">
     <material>Gazebo/Black</material>
     <gravity>true</gravity>
-    <sensor name="rslidar" type="ray">
+    <sensor name="hesai_lidar" type="ray">
       <pose>0.168 -0.02 0.211 0 1.57 0</pose>
       <visualize>false</visualize>
       <update_rate>40</update_rate>

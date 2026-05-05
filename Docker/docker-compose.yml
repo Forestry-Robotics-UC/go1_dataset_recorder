@@ -134,7 +134,7 @@ services:
       - ros2-net
     volumes:
       - /dev/:/dev/
-      - /mnt/External Disk/rosbags/:/root/rosbags/
+      - /home/fruc-go1-jetson/rosbags/:/root/rosbags/
       - ../ros2_ws/foxglove-build:/root/ros2_ws/build
       - ../shared_folder/:/root/shared_folder/
       - ../ros2_ws/go1_description:/root/ros2_ws/src/go1_description
