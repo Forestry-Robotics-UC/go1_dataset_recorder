@@ -1,5 +1,13 @@
 This repository provides a pipeline to record datasets with Unitree Go1 robot. For a detailed instruction manual, please check the [Wiki](https://github.com/Forestry-Robotics-UC/go1_dataset_recorder/wiki)!
 
+## 0. Clone Repository
+
+This repository uses submodules. To clone it with all submodules:
+
+```bash
+git clone --recursive https://github.com/Forestry-Robotics-UC/go1_dataset_recorder.git
+```
+
 ### 1. System Architecture
 The entire data-acquisition system for the Unitree Go1 is organized under:
 ```~/go1_dataset_recorder/
